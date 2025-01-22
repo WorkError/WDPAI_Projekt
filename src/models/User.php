@@ -12,14 +12,15 @@ class User
     private $password;
 
 
-    public function __construct( $firstName, $lastName, $nickname, $email, $password, $dateOfBirth)
+    public function __construct( $firstName, $lastName, $nickname, $email, $dateOfBirth, $password )
     {
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->nickname = $nickname;
         $this->email = $email;
-        $this->password = $password;
         $this->dateOfBirth = $dateOfBirth;
+        $this->password = $password;
+
     }
 
     /**
