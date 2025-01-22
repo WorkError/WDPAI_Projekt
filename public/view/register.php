@@ -34,5 +34,6 @@
             <p>Already have an account? <a href="login">Login here</a>.</p>
         </div>
     </div>
+    <script src="script/register_validation.js"></script>
 </body>
 </html>
