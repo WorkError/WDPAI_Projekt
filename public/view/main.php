@@ -17,7 +17,7 @@
         <nav class="navbar">
             <div class="logo"><a href="main">WeWatch</a></div>
             <ul class="menu">
-                <li><a href="profile"><i class="ri-user-line"></i></a></li>
+                <li><a href="profile/<?= $_SESSION['user_id'] ?>"><i class="ri-user-line"></i></a></li>
                 <li><a href="logout">Logout</a></li>
             </ul>
         </nav>
