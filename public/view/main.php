@@ -5,14 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main Page - Forum</title>
     <link rel="stylesheet" href="css/main.css">
-    <!-- External libraries -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
 </head>
 <body>
 <div class="wrapper">
-    <!-- Navigation Bar -->
     <header>
         <nav class="navbar">
             <div class="logo"><a href="main">WeWatch</a></div>
@@ -22,8 +20,6 @@
             </ul>
         </nav>
     </header>
-
-    <!-- Slider Section -->
     <section class="slider">
         <div><img src="assets/slider_1.jpg" alt="Movie 1"></div>
         <div><img src="assets/slider_2.jpg" alt="Movie 2"></div>
@@ -73,8 +69,6 @@
         </section>
     </div>
 
-
-    <!-- Footer Section -->
     <footer>
         <p>&copy; 2025 WeWatch. All rights reserved.</p>
         <div class="footer-links">
@@ -86,7 +80,6 @@
 
 </div>
 
-<!-- Scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
 <script src="script/main.js"></script>

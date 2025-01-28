@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize slider
     $('.slider').slick({
         autoplay: true,
         autoplaySpeed: 3000,
@@ -7,9 +6,8 @@ document.addEventListener('DOMContentLoaded', function() {
         dots: true
     });
 
-    // Initialize carousel
     $('.carousel').slick({
-        slidesToShow: 4, // Number of visible slides
+        slidesToShow: 4,
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 3000,
@@ -17,19 +15,19 @@ document.addEventListener('DOMContentLoaded', function() {
             {
                 breakpoint: 1024,
                 settings: {
-                    slidesToShow: 3, // 3 slides on medium screens
+                    slidesToShow: 3,
                 }
             },
             {
                 breakpoint: 768,
                 settings: {
-                    slidesToShow: 2, // 2 slides on small screens
+                    slidesToShow: 2,
                 }
             },
             {
                 breakpoint: 480,
                 settings: {
-                    slidesToShow: 1, // 1 slide on very small screens
+                    slidesToShow: 1,
                 }
             }
         ]

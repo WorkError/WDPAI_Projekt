@@ -16,6 +16,8 @@ Routing::get('main', 'DefaultController');
 Routing::get('logout', 'SecurityController');
 Routing::get('profile/{id}', 'DefaultController');
 Routing::post('profile/{id}', 'DefaultController');
+Routing::get('movie/{id}', 'MovieController');
+
 
 
 

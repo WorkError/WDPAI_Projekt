@@ -1,4 +1,3 @@
-/* General styles */
 body {
     margin: 0;
     padding: 0;
@@ -27,7 +26,6 @@ h1 {
     font-size: 2rem;
 }
 
-/* Form styles */
 form {
     display: flex;
     flex-direction: column;
@@ -70,7 +68,6 @@ button:hover {
     background-color: #f40612;
 }
 
-/* Links */
 a {
     color: #e50914;
     text-decoration: none;
@@ -83,7 +80,6 @@ a:hover {
     text-decoration: underline;
 }
 
-/* Responsive styles */
 @media (max-width: 768px) {
     .container {
         padding: 20px;

@@ -32,7 +32,6 @@ class DefaultController extends AppController{
         $user = $userRepository->getUserById($id);
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Zaktualizuj dane użytkownika na podstawie formularza
             $user->setFirstName($_POST['first_name']);
             $user->setLastName($_POST['last_name']);
             $user->setNickname($_POST['nickname']);

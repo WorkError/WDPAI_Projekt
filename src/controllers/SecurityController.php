@@ -18,7 +18,6 @@ class SecurityController extends AppController
 
         $user = $userRepository->getUserByEmail($email);
 
-        // Logowanie informacji debugujących
         if ($user) {
             error_log("User found: " . $user->getEmail());
             error_log("Password hash from DB: " . $user->getPassword());
