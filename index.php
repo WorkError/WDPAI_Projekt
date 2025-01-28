@@ -13,6 +13,7 @@ Routing::post('login','SecurityController');
 Routing::get('register', 'DefaultController');
 Routing::post('register', 'SecurityController');
 Routing::get('main', 'DefaultController');
+Routing::get('logout', 'SecurityController');
 
 
 
