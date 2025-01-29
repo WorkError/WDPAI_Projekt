@@ -3,6 +3,8 @@
 class AppController {
 
     protected function render(string $template = null,array $variables = []){
+        session_start();
+
         $templatePath = 'public/view/'.$template.'.php';
         $output = 'File not found';
 

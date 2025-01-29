@@ -17,8 +17,12 @@ Routing::get('logout', 'SecurityController');
 Routing::get('profile/{id}', 'DefaultController');
 Routing::post('profile/{id}', 'DefaultController');
 Routing::get('movie/{id}', 'MovieController');
+Routing::post('movie/{id}/add_comment', 'MovieController');
+Routing::get('category/{name}', 'CategoryController');
 
+if (strpos($path, 'add_comment') !== false) {
+    Routing::run2($path);
+} else {
+    Routing::run($path);
+}
 
-
-
-Routing::run($path);

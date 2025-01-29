@@ -33,7 +33,8 @@ CREATE TABLE movies (
 );
 
 INSERT INTO movies (title, description, image_path)
-VALUES ('Movie Title', 'Movie description...', '/assets/movie_image.webp');
+VALUES ('Movie1', 'Movie1 description...', '/assets/movie1.webp'),
+       ('Movie2', 'Movie2 description...', '/assets/movie2.webp');
 
 
 CREATE TABLE categories (
@@ -51,7 +52,7 @@ CREATE TABLE movie_categories (
 );
 
 INSERT INTO movie_categories (movie_id, category_id)
-VALUES (1, 2),(1, 1);
+VALUES (1, 2),(1, 1),(2,1);
 
 CREATE TABLE comments (
     id SERIAL PRIMARY KEY,
@@ -62,4 +63,6 @@ CREATE TABLE comments (
 );
 
 INSERT INTO comments (movie_id, user_id, content)
-VALUES (1, 1, 'Great movie! Highly recommend!');
+VALUES (1, 1, 'Great movie! Highly recommend!'),
+       (1, 2, 'OMG, That''s cool'),
+       (2, 1, 'No way thats true');

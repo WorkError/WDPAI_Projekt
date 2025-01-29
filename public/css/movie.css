@@ -43,25 +43,53 @@ img {
     text-decoration: underline;
 }
 
-textarea {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    background-color: #2a2a2a;
-    color: #ffffff;
+.comments {
+    margin-top: 30px;
+}
+
+.comments h3 {
+    color: #e50914;
     margin-bottom: 10px;
 }
 
-button {
+.comments ul {
+    list-style: none;
+    padding: 0;
+}
+
+.comments li {
+    margin-bottom: 15px;
     padding: 10px;
+    background-color: #1e1e1e;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.comments li strong {
+    color: #ffffff;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #2a2a2a;
+    color: #ffffff;
+}
+
+button {
+    padding: 10px 20px;
+    margin-top: 10px;
     border: none;
     background-color: #e50914;
     color: #ffffff;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
 }
 
 button:hover {
     background-color: #f40612;
 }
+

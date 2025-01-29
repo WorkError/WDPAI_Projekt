@@ -20,12 +20,26 @@
         </ul>
     </div>
     <div class="comments">
-        <h3>Comments:</h3>
-        <form method="POST" action="/movie/<?= $movie->getId() ?>/add_comment">
-            <textarea name="comment" placeholder="Add your comment..." required></textarea>
-            <button type="submit">Submit</button>
-        </form>
+        <h3>Comments</h3>
+        <ul>
+            <?php foreach ($comments as $comment): ?>
+                <li>
+                    <strong><?= htmlspecialchars($comment['nickname']) ?></strong> (<?= htmlspecialchars($comment['created_at']) ?>):<br>
+                    <?= htmlspecialchars($comment['content']) ?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+
+        <?php if (isset($_SESSION['user_id'])): ?>
+            <form method="POST" action="/movie/<?= $movie->getId() ?>/add_comment">
+                <textarea name="content" placeholder="Write a comment..." required></textarea>
+                <button type="submit">Add Comment</button>
+            </form>
+        <?php else: ?>
+            <p>You need to <a href="/login">log in</a> to add a comment.</p>
+        <?php endif; ?>
     </div>
+
 </div>
 </body>
 </html>

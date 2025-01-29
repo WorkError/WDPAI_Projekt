@@ -33,4 +33,57 @@ class MovieRepository extends Repository
             explode(',', $movieData['categories'])
         );
     }
+
+    public function getMoviesByCategory(string $categoryName): array
+    {
+        $statement = $this->database->connect()->prepare("
+        SELECT m.id, m.title, m.image_path 
+        FROM movies m
+        INNER JOIN movie_categories mc ON mc.movie_id = m.id
+        INNER JOIN categories c ON c.id = mc.category_id
+        WHERE c.name = :category_name
+    ");
+        $statement->bindParam(':category_name', $categoryName, PDO::PARAM_STR);
+        $statement->execute();
+
+        $movies = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return array_map(function ($movie) {
+            return new Movie(
+                $movie['id'],
+                $movie['title'],
+                '',
+                $movie['image_path'],
+                []
+            );
+        }, $movies);
+    }
+
+    public function addComment(int $movieId, int $userId, string $content): bool
+    {
+        $statement = $this->database->connect()->prepare("
+        INSERT INTO comments (movie_id, user_id, content, created_at)
+        VALUES (:movie_id, :user_id, :content, NOW())
+    ");
+        $statement->bindValue(':movie_id', $movieId, PDO::PARAM_INT);
+        $statement->bindValue(':user_id', $userId, PDO::PARAM_INT);
+        $statement->bindValue(':content', $content, PDO::PARAM_STR);
+
+        return $statement->execute();
+    }
+
+    public function getCommentsByMovieId(int $movieId): array
+    {
+        $statement = $this->database->connect()->prepare("
+        SELECT c.content, c.created_at, u.nickname
+        FROM comments c
+        INNER JOIN users u ON c.user_id = u.id
+        WHERE c.movie_id = :movie_id
+        ORDER BY c.created_at DESC
+    ");
+        $statement->bindParam(':movie_id', $movieId, PDO::PARAM_INT);
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
