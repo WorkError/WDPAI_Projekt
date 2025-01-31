@@ -9,27 +9,7 @@
 </head>
 <body>
 <div class="wrapper">
-    <header>
-        <nav class="navbar">
-            <div class="logo"><a href="main">WeWatch</a></div>
-            <div class="menu">
-                <li class="dropdown">
-                    <a href="#" class="dropbtn">Categories</a>
-                    <div class="dropdown-content">
-                        <?php foreach ($categories as $category): ?>
-                            <a href="category/<?= urlencode($category) ?>"><?= htmlspecialchars($category) ?></a>
-                        <?php endforeach; ?>
-                    </div>
-                </li>
-                <li>
-                    <a href="profile/<?= $_SESSION['user_id'] ?>">
-                        <i class="ri-user-line"></i> <?= htmlspecialchars($_SESSION['nickname']) ?>
-                    </a>
-                </li>
-                <li><a href="logout">Logout</a></li>
-            </div>
-        </nav>
-    </header>
+    <?php include 'partials/header.php'; ?>
     <div class="slider">
         <div class="slides">
             <div class="slide"><img src="/public/assets/slider_1.jpg" alt="Slide 1"></div>
@@ -77,16 +57,7 @@
             </div>
         </section>
     </div>
-
-    <footer>
-        <p>&copy; 2025 WeWatch. All rights reserved.</p>
-        <div class="footer-links">
-            <a href="#">Privacy Policy</a> |
-            <a href="#">Terms of Service</a> |
-            <a href="#">Contact Us</a>
-        </div>
-    </footer>
-
+    <?php include 'partials/footer.php'; ?>
 </div>
 
 <script src="script/main.js"></script>

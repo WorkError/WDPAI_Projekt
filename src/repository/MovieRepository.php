@@ -8,31 +8,31 @@ class MovieRepository extends Repository
     public function getMovieById($id): ?Movie
     {
         $statement = $this->database->connect()->prepare("
-            SELECT m.id, m.title, m.description, m.image_path, 
-                   ARRAY_AGG(c.name) AS categories
-            FROM movies m
-            LEFT JOIN movie_categories mc ON mc.movie_id = m.id
-            LEFT JOIN categories c ON c.id = mc.category_id
-            WHERE m.id = :id
-            GROUP BY m.id
-        ");
-        $statement->bindParam(':id', $id, PDO::PARAM_INT);
-        $statement->execute();
+        SELECT m.id, m.title, m.description, m.image_path,
+               COALESCE(string_agg(c.name, ', '), '') AS categories
+        FROM movies m
+        LEFT JOIN movie_categories mc ON mc.movie_id = m.id
+        LEFT JOIN categories c ON c.id = mc.category_id
+        WHERE m.id = :id
+        GROUP BY m.id
+    ");
+    $statement->bindParam(':id', $id, PDO::PARAM_INT);
+    $statement->execute();
 
-        $movieData = $statement->fetch(PDO::FETCH_ASSOC);
+    $movieData = $statement->fetch(PDO::FETCH_ASSOC);
 
-        if (!$movieData) {
-            return null;
-        }
-
-        return new Movie(
-            $movieData['id'],
-            $movieData['title'],
-            $movieData['description'],
-            $movieData['image_path'],
-            explode(',', $movieData['categories'])
-        );
+    if (!$movieData) {
+        return null;
     }
+
+    return new Movie(
+        $movieData['id'],
+        $movieData['title'],
+        $movieData['description'],
+        $movieData['image_path'],
+        array_filter(array_map('trim', explode(',', $movieData['categories'])))
+    );
+}
 
     public function getAllCategories(): array {
         $statement = $this->database->connect()->prepare("SELECT name FROM categories");

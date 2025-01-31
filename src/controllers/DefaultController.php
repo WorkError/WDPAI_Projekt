@@ -12,10 +12,23 @@ class DefaultController extends AppController{
     }
 
     public function login() {
+        session_start();
+
+        if (isset($_SESSION['user_id'])) {
+            header("Location: /main");
+            exit();
+        }
+
         $this->render('login');
     }
     
     public function register() {
+        session_start();
+
+        if (isset($_SESSION['user_id'])) {
+            header("Location: /main");
+            exit();
+        }
         $this->render('register');
     }
 
@@ -38,7 +51,9 @@ class DefaultController extends AppController{
         Authorization::checkLogin();
 
         $userRepository = new UserRepository();
+        $movieRepository = new MovieRepository();
         $user = $userRepository->getUserById($id);
+        $categories = $movieRepository->getAllCategories();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $user->setFirstName($_POST['first_name']);
@@ -53,6 +68,6 @@ class DefaultController extends AppController{
             exit();
         }
 
-        $this->render('profile', ['user' => $user]);
+        $this->render('profile', ['user' => $user, 'categories' => $categories]);
     }
 }

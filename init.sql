@@ -163,3 +163,59 @@ INSERT INTO comments (movie_id, user_id, content) VALUES
     (20, 3, 'I did not get the hype, honestly.'),
     (20, 5, 'I laughed, I cried, I loved it!'),
     (20, 2, 'A cinematic achievement!');
+
+
+
+CREATE VIEW movie_categories_view AS
+SELECT
+    m.id AS movie_id,
+    m.title AS movie_title,
+    m.description AS movie_description,
+    m.image_path AS movie_image,
+    STRING_AGG(c.name, ', ') AS categories
+FROM movies m
+         LEFT JOIN movie_categories mc ON mc.movie_id = m.id
+         LEFT JOIN categories c ON c.id = mc.category_id
+GROUP BY m.id;
+
+
+CREATE VIEW top_commented_movies AS
+SELECT
+    m.id AS movie_id,
+    m.title AS movie_title,
+    COUNT(c.id) AS comment_count
+FROM movies m
+         LEFT JOIN comments c ON c.movie_id = m.id
+GROUP BY m.id
+ORDER BY comment_count DESC;
+
+CREATE OR REPLACE FUNCTION check_unique_nickname()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF EXISTS (
+        SELECT 1 FROM users WHERE nickname = NEW.nickname
+    ) THEN
+        RAISE EXCEPTION 'Nickname % is already taken.', NEW.nickname;
+END IF;
+RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_unique_nickname
+    BEFORE INSERT OR UPDATE ON users
+                         FOR EACH ROW
+                         EXECUTE FUNCTION check_unique_nickname();
+
+
+CREATE OR REPLACE FUNCTION get_comment_count(movie_id INT)
+RETURNS INT AS $$
+DECLARE
+comment_count INT;
+BEGIN
+SELECT COUNT(*) INTO comment_count
+FROM comments
+WHERE comments.movie_id = movie_id;
+
+RETURN comment_count;
+END;
+$$ LANGUAGE plpgsql;

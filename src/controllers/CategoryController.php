@@ -3,17 +3,19 @@
 require_once 'AppController.php';
 require_once __DIR__ . '/../repository/MovieRepository.php';
 
+
 class CategoryController extends AppController
 {
     public function category($name)
     {
         $movieRepository = new MovieRepository();
         $movies = $movieRepository->getMoviesByCategory($name);
+        $categories = $movieRepository->getAllCategories();
 
         if (empty($movies)) {
             die('No movies found in this category.');
         }
 
-        $this->render('category', ['categoryName' => $name, 'movies' => $movies]);
+        $this->render('category', ['categoryName' => $name, 'movies' => $movies,'categories' => $categories]);
     }
 }

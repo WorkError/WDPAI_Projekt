@@ -11,6 +11,11 @@ class SecurityController extends AppController
 
         session_start();
 
+        if (isset($_SESSION['user_id'])) {
+            header("Location: /main");
+            exit();
+        }
+
         $userRepository = new UserRepository();
 
         $email = $_POST["email"];
@@ -45,21 +50,40 @@ class SecurityController extends AppController
     }
     public function register()
     {
+        session_start();
+
+        if (isset($_SESSION['user_id'])) {
+            header("Location: /main");
+            exit();
+        }
+
         $userRepository = new UserRepository();
-        $hashedPassword = password_hash($_POST["password"], PASSWORD_DEFAULT);
+
+        if (empty($_POST['email']) || empty($_POST['password']) || empty($_POST['first_name']) || empty($_POST['last_name']) || empty($_POST['nickname']) || empty($_POST['birth_date'])) {
+            return $this->render('register', ['messages' => ['All fields are required']]);
+        }
+
+        if ($userRepository->getUserByEmail($_POST['email'])) {
+            return $this->render('register', ['messages' => ['Email is already in use']]);
+        }
+
+        $hashedPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
         $user = new User(
-            $_POST["first_name"],
-            $_POST["last_name"],
-            $_POST["nickname"],
-            $_POST["email"],
-            $_POST["birth_date"],
+            $_POST['first_name'],
+            $_POST['last_name'],
+            $_POST['nickname'],
+            $_POST['email'],
+            $_POST['birth_date'],
             $hashedPassword
-            );
+        );
 
-        $userRepository->save($user);
+        if (!$userRepository->save($user)) {
+            return $this->render('register', ['messages' => ['An account with this email or nickname already exists']]);
+        }
 
-        $url = "http://$_SERVER[HTTP_HOST]";
-        header("Location: $url/login");
+        header("Location: /login");
+        exit();
     }
 
     public function logout() {

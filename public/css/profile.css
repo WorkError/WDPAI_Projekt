@@ -5,30 +5,55 @@ body {
     background-color: #121212;
     color: #ffffff;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
     min-height: 100vh;
 }
 
+.wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+
 .container {
-    width: 100%;
-    max-width: 600px;
+    width: 90%;
+    max-width: 800px;
     background-color: #1e1e1e;
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     text-align: center;
+    margin: 20px auto;
 }
 
-h1 {
+.current-details {
+    text-align: left;
     margin-bottom: 20px;
-    color: #e50914;
-    font-size: 2rem;
 }
+
+.details-box {
+    background-color: #2a2a2a;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.details-box p {
+    margin: 10px 0;
+    font-size: 1rem;
+    color: #b3b3b3;
+}
+
+.details-box span {
+    color: #ffffff;
+}
+
 
 form {
     display: flex;
     flex-direction: column;
+    margin-top: 20px;
 }
 
 label {
@@ -46,7 +71,6 @@ input {
     border-radius: 4px;
     background-color: #2a2a2a;
     color: #ffffff;
-    width: 100%;
 }
 
 input:focus {
@@ -68,7 +92,7 @@ button:hover {
     background-color: #f40612;
 }
 
-a {
+.back-button a {
     color: #e50914;
     text-decoration: none;
     font-size: 0.9rem;
@@ -80,9 +104,17 @@ a:hover {
     text-decoration: underline;
 }
 
+hr {
+    border: 0;
+    border-top: 1px solid #444;
+    margin: 20px 0;
+}
+
 @media (max-width: 768px) {
     .container {
+        width: 80%;
         padding: 20px;
+        font-size: 0.8rem;
     }
 
     h1 {

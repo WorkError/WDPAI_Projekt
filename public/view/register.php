@@ -11,6 +11,13 @@
         <div class="form-container">
             <h1>Register</h1>
             <form action="/register" method="POST">
+                <?php if (isset($messages)): ?>
+                    <div class="messages">
+                        <?php foreach ($messages as $message): ?>
+                            <p><?= htmlspecialchars($message) ?></p>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
                 <label for="first_name">First Name:</label>
                 <input type="text" id="first_name" name="first_name" required>
 
@@ -19,6 +26,7 @@
 
                 <label for="nickname">Nickname:</label>
                 <input type="text" id="nickname" name="nickname" required>
+
 
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" required>

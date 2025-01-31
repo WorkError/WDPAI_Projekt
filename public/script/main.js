@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const slideCount = document.querySelectorAll('.slide').length;
     let index = 0;
     let sliderInterval;
+    let isAnimating = false;
 
     function startSlider() {
         sliderInterval = setInterval(() => {

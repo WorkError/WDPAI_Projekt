@@ -7,39 +7,53 @@
     <link rel="stylesheet" href="/css/movie.css">
 </head>
 <body>
-<div class="movie-container">
-    <h1><?= htmlspecialchars($movie->getTitle()) ?></h1>
-    <img src="<?= htmlspecialchars($movie->getImagePath()) ?>" alt="Movie Image">
-    <p><?= htmlspecialchars($movie->getDescription()) ?></p>
-    <div class="categories">
-        <h3>Categories:</h3>
-        <ul>
-            <?php foreach ($movie->getCategories() as $category): ?>
-                <li><a href="/category/<?= urlencode($category) ?>"><?= htmlspecialchars($category) ?></a></li>
-            <?php endforeach; ?>
-        </ul>
-    </div>
-    <div class="comments">
-        <h3>Comments</h3>
-        <ul>
-            <?php foreach ($comments as $comment): ?>
-                <li>
-                    <strong><?= htmlspecialchars($comment['nickname']) ?></strong> (<?= htmlspecialchars($comment['created_at']) ?>):<br>
-                    <?= htmlspecialchars($comment['content']) ?>
-                </li>
-            <?php endforeach; ?>
-        </ul>
+<div class="wrapper">
+    <?php include 'partials/header.php'; ?>
+    <div class="movie-container">
+        <div class="movie-columns">
+            <div class="movie-poster">
+                <img src="<?= htmlspecialchars($movie->getImagePath()) ?>" alt="<?= htmlspecialchars($movie->getTitle()) ?>">
+            </div>
+            <div class="movie-details">
+                <h1><?= htmlspecialchars($movie->getTitle()) ?></h1>
+                <p><?= htmlspecialchars($movie->getDescription()) ?></p>
+                <div class="categories">
+                    <h3>Categories</h3>
+                    <div class="category-buttons">
+                        <?php foreach ($movie->getCategories() as $category): ?>
+                            <a href="/category/<?= urlencode($category) ?>" class="category-button">
+                                <?= htmlspecialchars($category) ?>
+                            </a>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="comments">
+            <h3>Comments</h3>
+            <ul>
+                <?php foreach ($comments as $comment): ?>
+                    <li>
+                        <div class="comment-header">
+                            <strong><?= htmlspecialchars($comment['nickname']) ?></strong>
+                            <span class="timestamp"><?= date('Y-m-d H:i', strtotime($comment['created_at'])) ?></span>
+                        </div>
+                        <?= htmlspecialchars($comment['content']) ?>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
 
-        <?php if (isset($_SESSION['user_id'])): ?>
-            <form method="POST" action="/movie/<?= $movie->getId() ?>/add_comment">
-                <textarea name="content" placeholder="Write a comment..." required></textarea>
-                <button type="submit">Add Comment</button>
-            </form>
-        <?php else: ?>
-            <p>You need to <a href="/login">log in</a> to add a comment.</p>
-        <?php endif; ?>
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <form method="POST" action="/movie/<?= $movie->getId() ?>/add_comment">
+                    <textarea name="content" placeholder="Write a comment..." required></textarea>
+                    <button type="submit">Add Comment</button>
+                </form>
+            <?php else: ?>
+                <p>You need to <a href="/login">log in</a> to add a comment.</p>
+            <?php endif; ?>
+        </div>
     </div>
-
+    <?php include 'partials/footer.php'; ?>
 </div>
 </body>
 </html>

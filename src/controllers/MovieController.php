@@ -10,12 +10,13 @@ class MovieController extends AppController
         $movieRepository = new MovieRepository();
         $movie = $movieRepository->getMovieById($id);
         $comments = $movieRepository->getCommentsByMovieId($id);
+        $categories = $movieRepository->getAllCategories();
 
         if (!$movie) {
             die('Movie not found');
         }
 
-        $this->render('movie', ['movie' => $movie, 'comments' => $comments]);
+        $this->render('movie', ['movie' => $movie, 'comments' => $comments,'categories' => $categories]);
     }
 
     public function add_comment($id)
