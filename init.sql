@@ -164,7 +164,14 @@ INSERT INTO comments (movie_id, user_id, content) VALUES
     (20, 5, 'I laughed, I cried, I loved it!'),
     (20, 2, 'A cinematic achievement!');
 
-
+CREATE TABLE logs (
+                      id SERIAL PRIMARY KEY,
+                      action VARCHAR(50) NOT NULL,
+                      table_name VARCHAR(50) NOT NULL,
+                      record_id INT NOT NULL,
+                      description TEXT,
+                      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
 CREATE VIEW movie_categories_view AS
 SELECT
@@ -189,33 +196,22 @@ FROM movies m
 GROUP BY m.id
 ORDER BY comment_count DESC;
 
-CREATE OR REPLACE FUNCTION check_unique_nickname()
+
+CREATE OR REPLACE FUNCTION log_new_movie()
 RETURNS TRIGGER AS $$
 BEGIN
-    IF EXISTS (
-        SELECT 1 FROM users WHERE nickname = NEW.nickname
-    ) THEN
-        RAISE EXCEPTION 'Nickname % is already taken.', NEW.nickname;
-END IF;
+INSERT INTO logs (action, table_name, record_id, description)
+VALUES (
+           'INSERT',
+           'movies',
+           NEW.id,
+           CONCAT('New movie added: ', NEW.title)
+       );
 RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trigger_unique_nickname
-    BEFORE INSERT OR UPDATE ON users
-                         FOR EACH ROW
-                         EXECUTE FUNCTION check_unique_nickname();
-
-
-CREATE OR REPLACE FUNCTION get_comment_count(movie_id INT)
-RETURNS INT AS $$
-DECLARE
-comment_count INT;
-BEGIN
-SELECT COUNT(*) INTO comment_count
-FROM comments
-WHERE comments.movie_id = movie_id;
-
-RETURN comment_count;
-END;
-$$ LANGUAGE plpgsql;
+CREATE TRIGGER trigger_log_new_movie
+    AFTER INSERT ON movies
+    FOR EACH ROW
+    EXECUTE FUNCTION log_new_movie();
