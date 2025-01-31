@@ -34,6 +34,11 @@ class MovieRepository extends Repository
         );
     }
 
+    public function getAllCategories(): array {
+        $statement = $this->database->connect()->prepare("SELECT name FROM categories");
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_COLUMN);
+    }
     public function getMoviesByCategory(string $categoryName): array
     {
         $statement = $this->database->connect()->prepare("
@@ -85,5 +90,33 @@ class MovieRepository extends Repository
         $statement->execute();
 
         return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getFirstMovies(int $limit): array
+    {
+        $statement = $this->database->connect()->prepare("
+        SELECT id, title, description, image_path 
+        FROM movies 
+        ORDER BY created_at DESC 
+        LIMIT :limit
+    ");
+        $statement->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $statement->execute();
+
+        $movies = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        if (!$movies) {
+            return [];
+        }
+
+        return array_map(function ($movie) {
+            return new Movie(
+                $movie['id'],
+                $movie['title'],
+                $movie['description'],
+                $movie['image_path'],
+                []
+            );
+        }, $movies);
     }
 }

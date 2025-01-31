@@ -22,7 +22,16 @@ class DefaultController extends AppController{
 
     public function main() {
         Authorization::checkLogin();
-        $this->render('main');
+
+        $movieRepository = new MovieRepository();
+        $categories = $movieRepository->getAllCategories();
+        $movies = $movieRepository->getFirstMovies(16);
+
+        $this->render('main', [
+            'categories' => $categories,
+            'movies' => $movies
+        ]);
+
     }
 
     public function profile($id) {
