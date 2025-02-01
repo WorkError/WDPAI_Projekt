@@ -56,7 +56,7 @@ Aby uruchomić projekt lokalnie, wykonaj następujące kroki:
 
 1. **Sklonuj repozytorium**:
    ```bash
-   git clone https://github.com/uzytkownik/wewatch.git
+   git clone https://github.com/WorkError/WDPAI_Projekt
    ```
 2. **Uruchom Dockera**:
    ```bash
