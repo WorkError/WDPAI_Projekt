@@ -9,7 +9,7 @@ Projekt został zbudowany przy użyciu następujących technologii:
 - **PostgreSQL** - Baza danych do przechowywania informacji o użytkownikach, filmach, komentarzach.
 - **Docker** - Środowisko kontenerowe umożliwiające łatwe uruchamianie aplikacji.
 - **Nginx** - Serwer HTTP obsługujący ruch sieciowy.
-- **JavaScript** - Wspiera interaktywność strony, np. dynamiczne przeładowywanie treści.
+- **JavaScript** - Wspiera interaktywność strony
 - **CSS** - Stylizacja interfejsu użytkownika.
 
 ## 🌐 Struktura Adresów
